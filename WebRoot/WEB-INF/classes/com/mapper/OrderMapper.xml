@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.OrderMapper">
+	
+	<resultMap type="order" id="result">
+		<result property="uuid" column="uuid"/>
+		<result property="number" column="num"/>
+		<result property="price" column="price"/>
+		<result property="state" column="state"/>
+		<result property="date" column="date_"/>
+		<result property="scope" column="scope"/>
+		<result property="shape" column="shape"/>
+		<result property="username" column="username"/>
+	</resultMap>
+	
+	<insert id="addOrder" parameterType="order">
+		INSERT INTO orders(uuid, num, price, state, date_, scope, shape, username) 
+		VALUES(#{uuid}, #{number}, #{price}, #{state}, now(), #{scope}, #{shape}, #{username});
+	</insert>
+		
+	<select id="queryOrderByUsername" parameterType="String" resultMap="result">
+		SELECT uuid, num, price, state, date_, scope, shape, username FROM orders WHERE username = #{username}
+	</select>
+	
+	<select id="totalOrderNum" resultType="Integer">
+		SELECT count(*) FROM orders;
+	</select>
+	
+	<select id="queryAllOrder" resultMap="result">
+		SELECT  uuid, num, price, state, date_, scope, shape, username FROM orders;
+	</select>
+	
+	<select id="queryOrderByUUID" parameterType="String" resultMap="result">
+		SELECT  uuid, num, price, state, date_, scope, shape, username FROM orders WHERE uuid = #{uuid};
+	</select>
+	
+	<select id="getPageData" parameterType="Integer" resultMap="result">
+		SELECT uuid, num, price, state, date_, scope, shape, username FROM orders limit #{pageSize} offset #{pageIndex} 
+	</select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.IndexMapper">
+	<!--<select id="getTemp" parameterType="Integer" resultType="Integer">
+		SELECT attnum FROM pg_attribute limit 1
+	</select>
+	-->
+	<select id="getIndex" parameterType="String" resultType="String">
+		SELECT getFldNames('{"schema":"public","tableName":"census_2010","neglectFlds":"id,perimeter,area"}'::json,'f692f114-73aa-11e7-931f-00163e104758','zh')
+	</select>
+	
+	
+	<select id="getSecretKey" resultType="String">
+		SELECT createorder();
+	</select>
+	
+</mapper>
